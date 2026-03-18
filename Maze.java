@@ -1,6 +1,6 @@
 import java.util.*;
 public class Maze{
-    private String[][] board;
+    private Tile[][] board;
     private int startR;
     private int startC;
     private int endR;
@@ -36,7 +36,7 @@ public class Maze{
             if(posR>0){
                 if(visited.contains((posR-1)+" "+posC)){
                     --posR;
-                    addVisited((posR-1)+" "+posC);
+                    addVisited(posR-1,posC);
                 }else{
                     System.out.println("Cell already visited");
                 }
@@ -48,7 +48,7 @@ public class Maze{
             if(posR<board.length-1){
                 if(visited.contains((posR+1)+" "+posC)){
                     ++posR;
-                    addVisited((posR+1)+" "+posC);
+                    addVisited(posR+1,posC);
                 }else{
                     System.out.println("Cell already visited");
                 }
@@ -60,7 +60,7 @@ public class Maze{
             if(posC>0){
                 if(visited.contains(posR+" "+(posC-1))){
                     --posC;
-                    addVisited(posR+" "+(posC-1));
+                    addVisited(posR,(posC-1));
                 }else{
                     System.out.println("Cell already visited");
                 }
@@ -73,7 +73,7 @@ public class Maze{
             if(posC<board[0].length-1){
                 if(visited.contains(posR+" "+(posC+1))){
                     ++posC;
-                    addVisited(posR+" "+(posC+1));
+                    addVisited(posR,(posC+1));
                 }else{
                     System.out.println("Cell already visited");
                 }

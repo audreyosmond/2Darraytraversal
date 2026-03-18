@@ -15,7 +15,7 @@ public class Tile{
         if(!isStart()&&!isEnd()){
             visited=flag;
             if(flag){
-                chr="."
+                chr=".";
             }
         }
     }
