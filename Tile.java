@@ -11,13 +11,24 @@ public class Tile{
         position=pos;
         
     }
+    public void reset(){
+        atPlayerPosition=false;
+        setVisited(false);
+    }
     public void setVisited(boolean flag){
-        if(!isStart()&&!isEnd()){
-            visited=flag;
-            if(flag){
-                chr=".";
-            }
+        visited=flag;
+        if(flag){
+            chr=".";
+        }else{
+            chr=value;
         }
+    }
+    public void setAtPlayerPos(){
+        chr="*";
+        atPlayerPosition=true;
+    }
+    public String getChr(){
+        return chr;
     }
     public boolean isStart(){
         if(value.equals("S")){
@@ -31,5 +42,10 @@ public class Tile{
         }
         return false;
     }
-    
+    public boolean isWall(){
+        if(value.equals("1")){
+            return true;
+        }
+        return false;
+    }
 }
