@@ -7,7 +7,7 @@ public class main {
         for(int i=0;i<4;++i){
             for(int j=0;j<11;++j){
                 String x=input.next();
-                Tile t=new Tile(x,i+" "+j);
+                Tile t=new Tile(x);
                 arr[i][j]=t;
             }
         }

@@ -2,13 +2,11 @@ public class Tile{
     boolean visited;
     String value;
     private String chr;
-    private String position;
     private boolean atPlayerPosition;
-    public Tile(String v, String pos){
+    public Tile(String v){
         value=v;
         chr=value;
         visited=false;
-        position=pos;
     }
     public void reset(){
         atPlayerPosition=false;
