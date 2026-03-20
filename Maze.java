@@ -12,11 +12,11 @@ public class Maze{
         board=mat;
         for(int i=0;i<board.length;++i){
             for(int j=0;j<board[i].length;++j){
-                if(board[i][j].equals("S")){
+                if(board[i][j].getValue().equals("S")){
                     startR=i;
                     startC=j;
                 }
-                if(board[i][j].equals("E")){
+                if(board[i][j].getValue().equals("E")){
                     endR=i;
                     endC=j;
                 }
@@ -27,7 +27,7 @@ public class Maze{
         posC=startC;
         visited.add(posR+" "+posC);
         board[posR][posC].setVisited(true);
-        board[posR][posC].setAtPlayerPos();
+        board[posR][posC].setAtPlayerPos(true);
     }
     
     public void addVisited(int row,int col){
@@ -35,24 +35,38 @@ public class Maze{
     }
 
     public boolean checkWin(){
-        return false;
+        for(int i=0;i<board.length;++i){
+            for(int j=0;j<board[i].length;++j){
+                if(!board[i][j].isWall()){
+                    if(!board[i][j].visited){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
     
     public void move(String dir){
+        for(int i=0;i<board.length;++i){
+            for(int j=0;j<board[i].length;++j){
+                board[i][j].setAtPlayerPos(false);
+            }
+        }
         if(dir.equals("w")){
             if(posR>0){
                 if(!visited.contains((posR-1)+" "+posC)){
                     if(!board[posR-1][posC].isWall()){
-                        if(board[posR-1][posC].isEnd()){
+                        --posR;
+                        addVisited(posR,posC);
+                        board[posR][posC].setVisited(true);
+                        board[posR][posC].setAtPlayerPos(true);
+                        if(board[posR][posC].isEnd()){
                             if(!checkWin()){
                                 System.out.println("You did not visit every cell");
                                 reset();
                             }
                         }
-                        --posR;
-                        addVisited(posR,posC);
-                        board[posR][posC].setVisited(true);
-                        board[posR][posC].setAtPlayerPos();
                     }else{
                         System.out.println("Cell is a wall");
                         reset();
@@ -73,7 +87,13 @@ public class Maze{
                         ++posR;
                         addVisited(posR,posC);
                         board[posR][posC].setVisited(true);
-                        board[posR][posC].setAtPlayerPos();
+                        board[posR][posC].setAtPlayerPos(true);
+                        if(board[posR][posC].isEnd()){
+                            if(!checkWin()){
+                                System.out.println("You did not visit every cell");
+                                reset();
+                            }
+                        }
                     }else{
                         System.out.println("Cell is a wall");
                         reset();
@@ -94,7 +114,13 @@ public class Maze{
                         --posC;
                         addVisited(posR,posC);
                         board[posR][posC].setVisited(true);
-                        board[posR][posC].setAtPlayerPos();
+                        board[posR][posC].setAtPlayerPos(true);
+                        if(board[posR][posC].isEnd()){
+                            if(!checkWin()){
+                                System.out.println("You did not visit every cell");
+                                reset();
+                            }
+                        }
                     }else{
                         System.out.println("Cell is a wall");
                         reset();
@@ -115,7 +141,13 @@ public class Maze{
                         ++posC;
                         addVisited(posR,posC);
                         board[posR][posC].setVisited(true);
-                        board[posR][posC].setAtPlayerPos();
+                        board[posR][posC].setAtPlayerPos(true);
+                        if(board[posR][posC].isEnd()){
+                            if(!checkWin()){
+                                System.out.println("You did not visit every cell");
+                                reset();
+                            }
+                        }
                     }else{
                         System.out.println("Cell is a wall");
                         reset();
@@ -140,7 +172,7 @@ public class Maze{
         posR=startR;
         posC=startC;
         board[posR][posC].setVisited(true);
-        board[posR][posC].setAtPlayerPos();
+        board[posR][posC].setAtPlayerPos(true);
         visited.clear();
         visited.add(posR+" "+posC);
     }
@@ -148,7 +180,7 @@ public class Maze{
     public void print(){
         for(int i=0;i<board.length;++i){
             for(int j=0;j<board[i].length;++j){
-                System.out.println(board[i][j].getChr()+" ");
+                System.out.print(board[i][j].getChr()+" ");
             }
             System.out.println();
         }

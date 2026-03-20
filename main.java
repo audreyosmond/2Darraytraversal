@@ -8,9 +8,18 @@ public class main {
             for(int j=0;j<11;++j){
                 String x=input.next();
                 Tile t=new Tile(x,i+" "+j);
+                arr[i][j]=t;
             }
         }
         Maze board=new Maze(arr);
-        board.print();
+        
+        Scanner userInput=new Scanner(System.in);
+        while(!board.checkWin()){
+            board.print();
+            board.move(userInput.next());
+            if(board.checkWin()){
+                System.out.println("You win");
+            }
+        }
     }
 }

@@ -9,7 +9,6 @@ public class Tile{
         chr=value;
         visited=false;
         position=pos;
-        
     }
     public void reset(){
         atPlayerPosition=false;
@@ -23,9 +22,17 @@ public class Tile{
             chr=value;
         }
     }
-    public void setAtPlayerPos(){
-        chr="*";
-        atPlayerPosition=true;
+    public void setAtPlayerPos(boolean flag){
+        if(flag){
+            chr="*";
+        }else{
+            if(visited){
+                chr=".";
+            }else{
+                chr=value;
+            }
+        }
+        atPlayerPosition=flag;
     }
     public String getChr(){
         return chr;
@@ -47,5 +54,8 @@ public class Tile{
             return true;
         }
         return false;
+    }
+    public String getValue(){
+        return value;
     }
 }
